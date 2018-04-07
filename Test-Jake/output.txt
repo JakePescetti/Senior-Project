@@ -1,0 +1,13 @@
+***Starting server on port 50919 ***
+Loading net-file from 'twoint.net.xml'... done (6ms).
+Loading done.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 45616ms
+ Real time factor: 13.8329
+ UPS: 1148.105928
+Vehicles: 
+ Inserted: 228 (Loaded: 299)
+ Running: 138
+ Waiting: 0
+

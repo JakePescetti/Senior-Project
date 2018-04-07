@@ -1,0 +1,40 @@
+<edges>
+<edge id="1i" from="3" to="1" priority="78" numLanes="1" speed="19.444" />
+   <edge id="1o" from="1" to="3" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="2i" from="3" to="2" priority="78" numLanes="1" speed="19.444" />
+   <edge id="2o" from="2" to="3" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="3i" from="6" to="3" priority="78" numLanes="1" speed="19.444" />
+   <edge id="3o" from="3" to="6" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="4i" from="3" to="4" priority="78" numLanes="1" speed="19.444" />
+   <edge id="4o" from="4" to="3" priority="46" numLanes="1" speed="11.111" />
+   
+   <edge id="5i" from="6" to="5" priority="78" numLanes="1" speed="19.444" />
+   <edge id="5o" from="5" to="6" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="7i" from="6" to="7" priority="78" numLanes="1" speed="19.444" />
+   <edge id="7o" from="7" to="6" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="8i" from="6" to="8" priority="78" numLanes="1" speed="19.444" />
+   <edge id="8o" from="8" to="6" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="91i" from="1" to="91" priority="78" numLanes="1" speed="19.444" />
+   <edge id="91o" from="91" to="1" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="92i" from="2" to="92" priority="78" numLanes="1" speed="19.444" />
+   <edge id="92o" from="92" to="2" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="94i" from="4" to="94" priority="78" numLanes="1" speed="19.444" />
+   <edge id="94o" from="94" to="4" priority="46" numLanes="1" speed="11.111" />
+   
+   <edge id="95i" from="5" to="95" priority="78" numLanes="1" speed="19.444" />
+   <edge id="95o" from="95" to="5" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="97i" from="7" to="97" priority="78" numLanes="1" speed="19.444" />
+   <edge id="97o" from="97" to="7" priority="46" numLanes="1" speed="11.111" />
+
+   <edge id="98i" from="8" to="98" priority="78" numLanes="1" speed="19.444" />
+   <edge id="98o" from="98" to="8" priority="46" numLanes="1" speed="11.111" />
+</edges>
