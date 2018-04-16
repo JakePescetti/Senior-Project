@@ -10,6 +10,7 @@ import subprocess
 import random
 import math
 import json
+import pickle
 import pyproj	#for geo-coordinate transform
 
 # we need to import python modules from the $SUMO_HOME/tools directory
@@ -31,6 +32,17 @@ tuple newGpsData
 
 import sumolib
 
+import time
+def follow(thefile):		#follow updating gps file
+    thefile.seek(0)
+    while True:
+        line = thefile.readline()
+        if not line:
+            time.sleep(0.1)
+            continue
+        yield line
+
+
 def generate_routefile():
 	with open("campusmap.rou.xml", "w") as routes:
 		print("""<routes>
@@ -44,9 +56,9 @@ def run():
 	step = 0
 	#while traci.simulation.getMinExpectedNumber() > 0:
 	traci.vehicle.add("bike", "bike1", typeID='typeBike')  #Adds bike to simulation
-	while 1:
+	while True:
 		radius = 0.1
-		lat, lon, speed = get_GPS_data()
+		lat, lon, bear, speed = get_GPS_data()
 		x, y = net.convertLonLatXY(lon, lat)
 		edges = net.getNeighboringEdges(x, y, radius)
 		# pick the closest edge (FIX THIS)
@@ -56,10 +68,10 @@ def run():
 		
 		#update bike parameters
 		traci.vehicle.moveToXY("bike",closestEdge,0,x,y,angle=-1001.0,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
-		traci.vehicle.setSpeed("bike",speed) #speed update
-		calcSpeed = get_best_speed("bike") #calc best speed
-		#send newSpeed
-		send_speed_data(calcSpeed)
+		#traci.vehicle.setSpeed("bike",speed)	#speed update
+		#calcSpeed = get_best_speed("bike")	#calc best speed
+		
+		send_time_to_grn(calcSpeed)	#send new speed
 		
 		traci.simulationStep()
 		step += 1
@@ -76,8 +88,8 @@ def get_GPS_data():
 	fileObject.close()
 	return gpsData
 	
-def send_speed_data(newSpeed):
-	file_Name = "speed.pkl"
+def send_time_to_grn(timeToGrn):
+	file_Name = "time.pkl"
 	fileObject = open(file_Name,'wb') 
 	pickle.dump(newSpeed,fileObject)   
 	fileObject.close()
