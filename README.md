@@ -3,9 +3,7 @@ Connected cyclist
 
 server: http://165.227.7.177/data
 
-need to install the following with pip:
-  -pyproj
-  -Rtree
+need to install the following with pip: pyproj, Rtree
 
 4/22/18: 
   -SUMO waits for a change in the gps.pkl file from the app. It then calculates and updates time.pkl with the time to next green and the one after that (in case the time is too short)
