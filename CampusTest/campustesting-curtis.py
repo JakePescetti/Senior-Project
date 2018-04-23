@@ -168,7 +168,7 @@ def timeWorker(program, currentPhase, remainingPhaseTime):
 		phaseList.append((p._phaseDef,p._duration)) # each phase in a list ('Marker', duration)
 
 	i = currentPhase
-	while True:
+	while step > 2:
 		pattern,time = phaseList[i]
 		
 		if i == currentPhase:

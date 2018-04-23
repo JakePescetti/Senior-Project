@@ -57,7 +57,7 @@ def run():
 	#while traci.simulation.getMinExpectedNumber() > 0:
 	traci.vehicle.add("bike", "bike1", typeID='typeBike')  #Adds bike to simulation
 	traci.vehicle.setSpeed("bike",0)
-	while True:
+	while step > 2:
 		radius = 0.1
 		closestEdge = 0
 		#lat, lon, bear, speed = get_GPS_data()
