@@ -117,6 +117,10 @@ def run():
 				# p = multiprocessing.Process(target=timeWorker, args=(lightProg,upcomingLightPhase,timeRemainingInPhase,))
 				# p.start()
 				# p.join()
+				
+				#Debugging
+				
+				
 				try:
 				   thread.start_new_thread( timeWorker, (lightProg,upcomingLightPhase,timeRemainingInPhase, ) )
 				except:

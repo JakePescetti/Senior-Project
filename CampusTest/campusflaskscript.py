@@ -12,8 +12,9 @@ app = Flask(__name__)
 def names():
 	
 	if request.method == 'GET':
-		timeToGrnFile = open("gps.pkl","r")#debug was time.pkl
+		timeToGrnFile = open("time.pkl","r")#debug was time.pkl
 		time = pickle.load(timeToGrnFile)
+		timeToGrnFile.close() #new
 		return jsonify(time)
 
 	if request.method == 'POST':
