@@ -173,7 +173,7 @@ def generate_routefile():
 	with open("home.rou.xml", "w") as routes:
 		print("""<routes>
 		<vType id="typeBike" accel="0.5" decel="5" sigma="0.5" length="2" minGap="3" maxSpeed="15" guiShape="bicycle"/>
-		<route id="bike1" edges="13317359#4 13288882#2 -13380370#3 -13354067#3"/>""", file=routes)
+		<route id="bike1" edges="13317359#4 13317359#5 13288882#2 13288882#3 -13380370#3 -13380370#2 -13354067#3 -13354067#2"/>""", file=routes)
 		
 		print("</routes>", file=routes)
 
