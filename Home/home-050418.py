@@ -153,7 +153,7 @@ def EngineOn():
 
 	# this is the normal way of using traci. sumo is started as a
 	# subprocess and then the python script connects and runs
-	traci.start([sumoBinary, "-c", "campusmap.sumocfg",
+	traci.start([sumoBinary, "-c", "home.sumocfg",
 							 "--full-output", "tripinfo.sbx"])
 	run()
 	
