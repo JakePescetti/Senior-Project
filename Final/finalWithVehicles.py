@@ -206,7 +206,7 @@ def generate_routefile():
 				vehNr += 1
 				lastVeh = i
 			if random.uniform(0, 1) < p2e:
-				print('	<vehicle id="2e_%i" type="typeCager" route="cager2e" depart="%i" color="1,0,0"/>' % (
+				print('	<vehicle id="2e_%i" type="typeCager" route="cager2e" depart="%i"/>' % (
 					vehNr, i), file=routes)
 				vehNr += 1
 				lastVeh = i
@@ -216,12 +216,12 @@ def generate_routefile():
 				vehNr += 1
 				lastVeh = i
 			if random.uniform(0, 1) < p3e:
-				print('	<vehicle id="3e_%i" type="typeCager" route="cager3e" depart="%i" color="1,0,0"/>' % (
+				print('	<vehicle id="3e_%i" type="typeCager" route="cager3e" depart="%i" />' % (
 					vehNr, i), file=routes)
 				vehNr += 1
 				lastVeh = i
 			if random.uniform(0, 1) < p4n:
-				print('	<vehicle id="4n_%i" type="typeCager" route="cager4n" depart="%i" color="1,0,0"/>' % (
+				print('	<vehicle id="4n_%i" type="typeCager" route="cager4n" depart="%i" />' % (
 					vehNr, i), file=routes)
 				vehNr += 1
 				lastVeh = i
