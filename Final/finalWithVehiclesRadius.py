@@ -284,7 +284,7 @@ def warnCars(tlsID):
 	for car in allCars:
 		x2,y2 = traci.vehicle.getPosition(car)
 		dist = traci.simulation.getDistance2D(x1,y1,x2,y2, isGeo=False, isDriving=True)
-		if dist < radius and car != "bike" and traci.vehicle.getSpeed(car)==0
+		if dist < radius and car != "bike" and traci.vehicle.getSpeed(car)==0:
 			traci.vehicle.setColor(car,(255,0,0,255)) #set color to red
 			traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
 			print('car warned\n') #debugging
