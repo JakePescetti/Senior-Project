@@ -185,11 +185,11 @@ def generate_routefile():
 		<vType id="typeCager" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
 		<vType id="typeBike" accel="0.5" decel="5" sigma="0.5" length="2" minGap="3" maxSpeed="20" guiShape="bicycle"/>
 		
-		<route id="cager1e" edges=":-61379_0 -61381#0 -61381#1 -432523794"/>
-		<route id="cager1w" edges=":4343464730_0 432523794 --61381#1 --61381#0"/>
+		<route id="cager1e" edges="-41390#0 -41390#1 -432523794"/>
+		<route id="cager1w" edges="432523794 --41390#1 --41390#0"/>
 		<route id="cager2e" edges="-435041944#1 -435041944#0"/>
 		<route id="cager2w" edges="435041944#0 435041944#1"/>
-		<route id="cager3e" edges="-61290 -430638860#2 -430638860#1"/>
+		<route id="cager3e" edges="-41388 -430638860#2 -430638860#1"/>
 		<route id="cager4n" edges="-354871676 -434953517#0 -430638860#3 -430638860#2 -430638860#1"/>
 		<route id="bike1" edges="430638860#0 430638860#1 430638860#2 430638860#3 434953517#0 434953517#1 434953517#2"/>""", file=routes)
 		lastVeh = 0
