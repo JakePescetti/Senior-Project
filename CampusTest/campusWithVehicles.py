@@ -171,15 +171,15 @@ except ImportError:
 
 def generate_routefile():
 	random.seed(42)  # make tests reproducible
-    N = 5000  # number of time steps
-    # demand per second from different directions
-    p1e = 1. / 10
-    p1w = 1. / 11
-    p2e = 1. / 20
+	N = 5000  # number of time steps
+	# demand per second from different directions
+	p1e = 1. / 10
+	p1w = 1. / 11
+	p2e = 1. / 20
 	p2w = 1. / 11
-    p3e = 1. / 20
+	p3e = 1. / 20
 	p4e = 1. / 11
-    p5n = 1. / 20
+	p5n = 1. / 20
 	with open("campusmap.rou.xml", "w") as routes:
 		print("""<routes>
 		<vType id="typeCager" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
@@ -195,44 +195,44 @@ def generate_routefile():
 		
 		print("</routes>", file=routes)
 		lastVeh = 0
-        vehNr = 0
-        for i in range(N):
-            if random.uniform(0, 1) < p1e:
-                print('    <vehicle id="1e_%i" type="typeCager" route="cager1e" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
-            if random.uniform(0, 1) < p1w:
-                print('    <vehicle id="1w_%i" type="typeCager" route="cager1w" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
-            if random.uniform(0, 1) < p2e:
-                print('    <vehicle id="2e_%i" type="typeCager" route="cager2e" depart="%i" color="1,0,0"/>' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
+		vehNr = 0
+		for i in range(N):
+			if random.uniform(0, 1) < p1e:
+				print('	<vehicle id="1e_%i" type="typeCager" route="cager1e" depart="%i" />' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
+			if random.uniform(0, 1) < p1w:
+				print('	<vehicle id="1w_%i" type="typeCager" route="cager1w" depart="%i" />' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
+			if random.uniform(0, 1) < p2e:
+				print('	<vehicle id="2e_%i" type="typeCager" route="cager2e" depart="%i" color="1,0,0"/>' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
 			if random.uniform(0, 1) < p2w:
-                print('    <vehicle id="2w_%i" type="typeCager" route="cager2w" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
-            if random.uniform(0, 1) < p3e:
-                print('    <vehicle id="3e_%i" type="typeCager" route="cager3e" depart="%i" color="1,0,0"/>' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
+				print('	<vehicle id="2w_%i" type="typeCager" route="cager2w" depart="%i" />' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
+			if random.uniform(0, 1) < p3e:
+				print('	<vehicle id="3e_%i" type="typeCager" route="cager3e" depart="%i" color="1,0,0"/>' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
 			if random.uniform(0, 1) < p4e:
-                print('    <vehicle id="4e_%i" type="typeCager" route="cager4e" depart="%i" color="1,0,0"/>' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
+				print('	<vehicle id="4e_%i" type="typeCager" route="cager4e" depart="%i" color="1,0,0"/>' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
 			if random.uniform(0, 1) < p5n:
-                print('    <vehicle id="5n_%i" type="typeCager" route="cager5n" depart="%i" color="1,0,0"/>' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-                lastVeh = i
-        print("</routes>", file=routes)
+				print('	<vehicle id="5n_%i" type="typeCager" route="cager5n" depart="%i" color="1,0,0"/>' % (
+					vehNr, i), file=routes)
+				vehNr += 1
+				lastVeh = i
+		print("</routes>", file=routes)
 
 def run():
 	#net = sumolib.net.readNet('campusmap.net.xml')
