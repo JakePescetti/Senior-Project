@@ -12,6 +12,7 @@ import traci
 import pyproj
 import rtree
 import time
+import random
 #!/usr/bin/env python
 
 
@@ -184,6 +185,7 @@ def generate_routefile():
 		print("""<routes>
 		<vType id="typeCager" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
 		<vType id="typeBike" accel="0.5" decel="5" sigma="0.5" length="2" minGap="3" maxSpeed="20" guiShape="bicycle"/>
+		
 		<route id="cager1e" edges=":-61379_0 -61381#0 -61381#1 -432523794"/>
 		<route id="cager1w" edges=":4343464730_0 432523794 --61381#1 --61381#0"/>
 		<route id="cager2e" edges="-435041944#1 -435041944#0"/>
@@ -192,8 +194,6 @@ def generate_routefile():
 		<route id="cager4e" edges="-13322491 -430638860#3 -430638860#2 -430638860#1"/>
 		<route id="cager5n" edges="-354871676 -434953517#0 -430638860#3 -430638860#2 -430638860#1"/>
 		<route id="bike1" edges="430638860#0 430638860#1 430638860#2 430638860#3 434953517#0 434953517#1 434953517#2"/>""", file=routes)
-		
-		print("</routes>", file=routes)
 		lastVeh = 0
 		vehNr = 0
 		for i in range(N):
@@ -262,7 +262,7 @@ def run():
 			
 			if tank != oldTLSID:
 				clearCars(oldTLSID)
-			else if upcominglights[0][2] < 5 & BikeSpeed != 0: #Check if cyclist id crossing intersection for warning beacon
+			elif upcominglights[0][2] < 5 and BikeSpeed != 0: #Check if cyclist id crossing intersection for warning beacon
 				oldTLSID = tank
 				warnCars(tank)
 			
@@ -288,18 +288,18 @@ def updatePosition():
 def warnCars(tlsID):
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
-		if traci.vehicle.getSpeed(car)==0 & car != "bike": #only cars waiting at light that aren't the cyclist
+		if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
 			nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
-			if nextLight[0][0]==tlsID && nextLight[0][2] < 40: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
+			if nextLight[0][0]==tlsID and nextLight[0][2] < 40: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
 				traci.vehicle.setColor(255,0,0,255) #set color to red
 				traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
 
 def clearCars(tlsID):
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
-		if traci.vehicle.getSpeed(car)==0 & car != "bike": #only cars waiting at light that aren't the cyclist
+		if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
 			nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
-			if nextLight[0][0]==tlsID && nextLight[0][2] < 50: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
+			if nextLight[0][0]==tlsID and nextLight[0][2] < 50: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
 				traci.vehicle.setColor(255,255,0,255) #default yellow color 255,255,0,255
 				traci.vehicle.resume(car) #clear cars to go again
 	
