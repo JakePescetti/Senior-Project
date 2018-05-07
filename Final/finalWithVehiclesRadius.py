@@ -258,7 +258,7 @@ def run():
 				warnCars(savedLight)
 				warnRepeat -= 1
 				
-			if warnRepeat == 0 and warningTriggered = True: #Reset cars
+			if warnRepeat == 0 and warningTriggered == True: #Reset cars
 				clearCars(savedLight)
 				warningTriggered = False
 			
