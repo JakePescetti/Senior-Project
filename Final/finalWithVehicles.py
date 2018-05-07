@@ -176,7 +176,7 @@ def generate_routefile():
 	p4n = 1. / 11
 	with open("final.rou.xml", "w") as routes:
 		print("""<routes>
-		<vType id="typeCager" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
+		<vType id="typeCager" accel="0.8" decel="9" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
 		<vType id="typeBike" accel="0.5" decel="5" sigma="0.5" length="2" minGap="3" maxSpeed="20" guiShape="bicycle"/>
 		
 		<route id="cager1e" edges="-41390#0 -41390#1 -432523794"/>
@@ -250,7 +250,7 @@ def run():
 			if carsWarned == True and tank != oldTLSID and step-warnCounter > 5:
 				clearCars(oldTLSID)
 				carsWarned = False
-			elif upcominglights[0][2] < 8 and BikeSpeed != 0: #Check if cyclist is crossing intersection for warning beacon
+			elif upcominglights[0][2] < 12 and BikeSpeed > 0: #Check if cyclist is crossing intersection for warning beacon
 				oldTLSID = tank
 				warnCars(tank)
 				warnCounter = step
