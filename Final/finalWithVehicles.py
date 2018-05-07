@@ -240,6 +240,7 @@ def run():
 	traci.vehicle.setSpeed("bike",0)
 	oldTLSID = ''
 	warnCounter=0
+	carsWarned = False
 	while True:
 		starttime=time.time()
 		updatePosition()
@@ -254,12 +255,14 @@ def run():
 			#this must be processed in the simulation, can1t be done in the webserver it will break things
 			#likely because it is not thread safe
 			
-			if tank != oldTLSID and step-warnCounter > 5:
+			if carsWarned = True and tank != oldTLSID and step-warnCounter > 5:
 				clearCars(oldTLSID)
+				carsWarned = False
 			elif upcominglights[0][2] < 5 and BikeSpeed != 0: #Check if cyclist is crossing intersection for warning beacon
 				oldTLSID = tank
 				warnCars(tank)
 				warnCounter = step
+				carsWarned = True
 			
 		traci.simulationStep()
 		step += 1
