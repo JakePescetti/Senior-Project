@@ -232,7 +232,10 @@ def run():
 	traci.vehicle.setSpeed("bike",0)
 	oldTLSID = ''
 	warnCounter=0
+	warnRepeat = 0
+	savedLight = ''
 	carsWarned = False
+	warningTriggered=False
 	while True:
 		starttime=time.time()
 		updatePosition()
@@ -246,15 +249,27 @@ def run():
 			greenz(tank) #has to be here beacuse flask crashes traci if it is after the simulation step
 			#this must be processed in the simulation, can1t be done in the webserver it will break things
 			#likely because it is not thread safe
+			if upcominglights[0][2] < 12 and BikeSpeed > 0: #Check if cyclist is going for it to trigger warning beacon
+				warnRepeat = 5
+				savedLight = tank
+				warningTriggered = True
 			
-			if carsWarned == True and tank != oldTLSID and step-warnCounter > 5:
-				clearCars(oldTLSID)
-				carsWarned = False
-			elif upcominglights[0][2] < 12 and BikeSpeed > 0: #Check if cyclist is crossing intersection for warning beacon
-				oldTLSID = tank
-				warnCars(tank)
-				warnCounter = step
-				carsWarned = True
+			if warnRepeat > 0:
+				warnCars(savedLight)
+				warnRepeat -= 1
+				
+			if warnRepeat == 0 and warningTriggered = True: #Reset cars
+				clearCars(savedLight)
+				warningTriggered = False
+			
+			# if carsWarned == True and tank != oldTLSID and step-warnCounter > 5:
+				# clearCars(oldTLSID)
+				# carsWarned = False
+			# elif upcominglights[0][2] < 12 and BikeSpeed > 0: #Check if cyclist is crossing intersection for warning beacon
+				# oldTLSID = tank
+				# warnCars(tank)
+				# warnCounter = step
+				# carsWarned = True
 			
 		traci.simulationStep()
 		step += 1
@@ -278,7 +293,7 @@ def warnCars(tlsID):
 	#get position of junction
 	#loop and get all vehicles in a certain radius of intersection
 	#check direction of vehicles?
-	radius = 40
+	radius = 60
 	x1,y1 = traci.junction.getPosition(tlsID)
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
