@@ -278,7 +278,7 @@ def warnCars(tlsID):
 	#get position of junction
 	#loop and get all vehicles in a certain radius of intersection
 	#check direction of vehicles?
-	radius = 20
+	radius = 40
 	x1,y1 = traci.junction.getPosition(tlsID)
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
