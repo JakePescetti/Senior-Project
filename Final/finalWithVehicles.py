@@ -284,17 +284,20 @@ def warnCars(tlsID):
 		if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
 			nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
 			if nextLight[0][0]==tlsID and nextLight[0][2] < 20: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
-				traci.vehicle.setColor(255,0,0,255) #set color to red
+				traci.vehicle.setColor(car,(255,0,0,255)) #set color to red
 				traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
 
 def clearCars(tlsID):
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
-		if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
-			nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
-			if nextLight[0][0]==tlsID and nextLight[0][2] < 50: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
-				traci.vehicle.setColor(255,255,0,255) #default yellow color 255,255,0,255
-				traci.vehicle.resume(car) #clear cars to go again
+		traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
+		if traci.vehicle.isStopped(car):
+			traci.vehicle.resume(car) #clear cars to go again
+		# if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
+			# nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
+			# if nextLight[0][0]==tlsID and nextLight[0][2] < 50: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
+				# traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
+				# traci.vehicle.resume(car) #clear cars to go again
 	
 
 def get_options():
