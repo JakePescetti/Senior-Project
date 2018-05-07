@@ -249,8 +249,8 @@ def run():
 			greenz(tank) #has to be here beacuse flask crashes traci if it is after the simulation step
 			#this must be processed in the simulation, can1t be done in the webserver it will break things
 			#likely because it is not thread safe
-			if upcominglights[0][2] < 12 and BikeSpeed > 0: #Check if cyclist is going for it to trigger warning beacon
-				warnRepeat = 5
+			if upcominglights[0][2] < 20 and BikeSpeed > 0: #Check if cyclist is going for it to trigger warning beacon
+				warnRepeat = 8
 				savedLight = tank
 				warningTriggered = True
 			
@@ -259,7 +259,7 @@ def run():
 				warnRepeat -= 1
 				
 			if warnRepeat == 0 and warningTriggered == True: #Reset cars
-				clearCars(savedLight)
+				clearCars()
 				warningTriggered = False
 			
 			# if carsWarned == True and tank != oldTLSID and step-warnCounter > 5:
@@ -293,7 +293,7 @@ def warnCars(tlsID):
 	#get position of junction
 	#loop and get all vehicles in a certain radius of intersection
 	#check direction of vehicles?
-	radius = 60
+	radius = 70
 	x1,y1 = traci.junction.getPosition(tlsID)
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
@@ -311,7 +311,7 @@ def warnCars(tlsID):
 				# traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
 				# print('car warned\n') #debugging
 				
-def clearCars(tlsID):
+def clearCars():
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
 		traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
