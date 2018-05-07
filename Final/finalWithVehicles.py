@@ -277,7 +277,7 @@ def updatePosition():
 def warnCars(tlsID):
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
-		if traci.vehicle.getSpeed(car)< 2 and car != "bike": #only cars waiting at light that aren't the cyclist (removed: traci.vehicle.getSpeed(car)==0)
+		if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist (removed: traci.vehicle.getSpeed(car)==0)
 			nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
 			if len(nextLight) > 0 and nextLight[0][0]==tlsID and nextLight[0][2] < 40: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
 				traci.vehicle.setColor(car,(255,0,0,255)) #set color to red
