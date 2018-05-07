@@ -249,7 +249,7 @@ def run():
 			greenz(tank) #has to be here beacuse flask crashes traci if it is after the simulation step
 			#this must be processed in the simulation, can1t be done in the webserver it will break things
 			#likely because it is not thread safe
-			if upcominglights[0][2] < 20 and BikeSpeed > 0: #Check if cyclist is going for it to trigger warning beacon
+			if upcominglights[0][2] < 30 and BikeSpeed > 0: #Check if cyclist is going for it to trigger warning beacon
 				warnRepeat = 8
 				savedLight = tank
 				warningTriggered = True
