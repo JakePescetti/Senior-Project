@@ -4,8 +4,6 @@ from datetime import date, timedelta, time, datetime
 import os
 import sys
 import optparse
-
-#import multiprocessing
 import threading
 import sumolib
 import traci
@@ -17,13 +15,9 @@ import random
 
 
 from threading import Thread
-#from multiprocessing import Process, Pipe
 from flask import Flask
 from flask import request
 from flask import jsonify
-#from datetime import *
-
-
 
 
 app = Flask(__name__)
@@ -228,8 +222,6 @@ def generate_routefile():
 		print("</routes>", file=routes)
 
 def run():
-	#net = sumolib.net.readNet('campusmap.net.xml')
-#	oldUpcomingLightID = ''
 	"""execute the TraCI control loop"""
 	""" This stuff powers through the fist 2 steps"""
 	step = 0
@@ -274,7 +266,6 @@ def updatePosition():
 	net = sumolib.net.readNet('final.net.xml')
 	x, y = net.convertLonLat2XY(BikeLong, BikeLat)		
 	edges = net.getNeighboringEdges(x, y, 0.6)
-	# pick the closest edge (FIX THIS)
 	if len(edges) > 0:
 		distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])
 		dist, closestEdge = distancesAndEdges[0]
@@ -300,13 +291,7 @@ def clearCars(tlsID):
 		if traci.vehicle.isStopped(car):
 			traci.vehicle.resume(car) #clear cars to go again
 			print('car cleared\n')
-		# if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
-			# nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
-			# if nextLight[0][0]==tlsID and nextLight[0][2] < 50: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
-				# traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
-				# traci.vehicle.resume(car) #clear cars to go again
 	
-
 def get_options():
 	optParser = optparse.OptionParser()
 	optParser.add_option("--nogui", action="store_true",
@@ -319,9 +304,7 @@ def gogo(): # StartsTraci Hosted on port 8080, with the machines IP address
 	app.run(threaded=True, host = '0.0.0.0', port = 8080)
 	
 	
-# this is the main entry point of this script
-#if __name__ == "__main__":
-	
+# this is the main entry point of this script	
 if __name__ == '__main__':
 
 	global TTL
