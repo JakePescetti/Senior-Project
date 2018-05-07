@@ -299,6 +299,7 @@ def clearCars(tlsID):
 		traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
 		if traci.vehicle.isStopped(car):
 			traci.vehicle.resume(car) #clear cars to go again
+			print('car cleared\n')
 		# if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist
 			# nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
 			# if nextLight[0][0]==tlsID and nextLight[0][2] < 50: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
