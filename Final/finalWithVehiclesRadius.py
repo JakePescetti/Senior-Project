@@ -310,7 +310,7 @@ def clearCars():
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
 		traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
-		traci.vehicle.slowDown(car,traci.vehicle.getSpeedWithoutTraci(car),3000)
+		traci.vehicle.slowDown(car,traci.vehicle.getSpeedWithoutTraCI(car),3000)
 		print('car cleared\n')
 		# if traci.vehicle.isStopped(car):
 			# traci.vehicle.resume(car) #clear cars to go again
