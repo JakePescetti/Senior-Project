@@ -177,7 +177,7 @@ def generate_routefile():
 	with open("final.rou.xml", "w") as routes:
 		print("""<routes>
 		<vType id="typeCager" accel="0.8" decel="9" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
-		<vType id="typeBike" color="blue" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle"/>
+		<vType id="typeBike" vClass="authority" color="blue" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle"/>
 		
 		<route id="cager1e" edges="-41390#0 -41390#1 -432523794"/>
 		<route id="cager1w" edges="432523794 --41390#1 --41390#0"/>
@@ -310,7 +310,7 @@ def clearCars():
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
 		traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
-		traci.vehicle.slowDown(car,20,3000)
+		traci.vehicle.slowDown(car,traci.vehicle.getSpeedWithoutTraci(car),3000)
 		print('car cleared\n')
 		# if traci.vehicle.isStopped(car):
 			# traci.vehicle.resume(car) #clear cars to go again
