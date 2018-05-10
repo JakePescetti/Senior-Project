@@ -177,7 +177,7 @@ def generate_routefile():
 	with open("final.rou.xml", "w") as routes:
 		print("""<routes>
 		<vType id="typeCager" accel="0.8" decel="9" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
-		<vType id="typeBike" accel="0.5" decel="5" sigma="0.5" length="2" minGap="3" maxSpeed="20" guiShape="bicycle"/>
+		<vType id="typeBike" color="blue" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle"/>
 		
 		<route id="cager1e" edges="-41390#0 -41390#1 -432523794"/>
 		<route id="cager1w" edges="432523794 --41390#1 --41390#0"/>
@@ -302,22 +302,19 @@ def warnCars(tlsID):
 		#print(dist)
 		if dist < radius and car != "bike" and traci.vehicle.getSpeed(car)==0:
 			traci.vehicle.setColor(car,(255,0,0,255)) #set color to red
-			traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
+			#traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
+			traci.vehicle.slowDown(car,0,1500)
 			print('car warned\n') #debugging
-		# if traci.vehicle.getSpeed(car)==0 and car != "bike": #only cars waiting at light that aren't the cyclist (removed: traci.vehicle.getSpeed(car)==0)
-			# nextLight = traci.vehicle.getNextTLS(car)		#get the ID of the light in front of them
-			# if len(nextLight) > 0 and nextLight[0][0]==tlsID and nextLight[0][2] < 40: #make sure the car is stopped at an intersection and the ID matches the one the bike is crossing
-				# traci.vehicle.setColor(car,(255,0,0,255)) #set color to red
-				# traci.vehicle.setStop(car,traci.vehicle.getRoadID(car), traci.vehicle.getLanePosition(car), traci.vehicle.getLaneIndex(car), duration=20000, flags=0, startPos=-1001.0, until=-1)	#stop cars for 20 seconds
-				# print('car warned\n') #debugging
 				
 def clearCars():
 	allCars = traci.vehicle.getIDList()
 	for car in allCars:
 		traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
-		if traci.vehicle.isStopped(car):
-			traci.vehicle.resume(car) #clear cars to go again
-			print('car cleared\n')
+		traci.vehicle.slowDown(car,20,3000)
+		print('car cleared\n')
+		# if traci.vehicle.isStopped(car):
+			# traci.vehicle.resume(car) #clear cars to go again
+			#print('car cleared\n')
 	
 def get_options():
 	optParser = optparse.OptionParser()
