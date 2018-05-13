@@ -323,7 +323,8 @@ def updatePosition():
 	# #update bike parameters
 		# traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 		# traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
-		
+	
+	global net	
 	x, y = traci.simulation.convertGeo(BikeLong, BikeLat, fromGeo=True)
 	#sumolib.net.convertLonLat2XY(BikeLong, BikeLat)		
 	edges = net.getNeighboringEdges(x, y, 0.6)
@@ -392,6 +393,7 @@ def gogo(): # StartsTraci Hosted on port 8080, with the machines IP address
 if __name__ == '__main__':
 
 	global TTL
+	net = sumolib.net.readNet('horses.net.xml')
 	TTL = 30 # setting TTL to 30 as fixed channge this if needed
 	e = threading.Thread(target= gogo)
 #	d = threading.Thread(target=EngineOn) """ if we need to put traci into a thread"""
