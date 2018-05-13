@@ -153,7 +153,7 @@ def greenz(TraficID): #get the next two green times from TraficID
 		TTL = greenTimes
 	elif greenTimes[1] < 5:
 		TTL = 5
-	else 
+	else:
 		TTL = 30
 	
 	
@@ -317,7 +317,7 @@ def run():
 def updatePosition():
 	net = sumolib.net.readNet('horses.net.xml')
 	x, y = net.convertLonLat2XY(BikeLong, BikeLat)		
-	edges = net.getNeighboringEdges(x, y, 0.6)
+	edges = net.getNeighboringEdges(x, y, 100)
 	if len(edges) > 0:
 		distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])
 		dist, closestEdge = distancesAndEdges[0]
@@ -325,6 +325,8 @@ def updatePosition():
 	#update bike parameters
 		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 		traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
+	else:
+		print('no edges')
 	
 	# global net	
 	# x, y = traci.simulation.convertGeo(BikeLong, BikeLat, fromGeo=True)
