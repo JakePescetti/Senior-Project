@@ -313,41 +313,41 @@ def run():
 #	sys.stdout.flush()
 
 def updatePosition():
-	# net = sumolib.net.readNet('horses.net.xml')
-	# x, y = net.convertLonLat2XY(BikeLong, BikeLat)		
-	# edges = net.getNeighboringEdges(x, y, 0.6)
-	# if len(edges) > 0:
-		# distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])
-		# dist, closestEdge = distancesAndEdges[0]
-		# edge_id = closestEdge.getID()
-	# #update bike parameters
-		# traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
-		# traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
-	
-	global net	
-	x, y = traci.simulation.convertGeo(BikeLong, BikeLat, fromGeo=True)
-	#sumolib.net.convertLonLat2XY(BikeLong, BikeLat)		
+	net = sumolib.net.readNet('horses.net.xml')
+	x, y = net.convertLonLat2XY(BikeLong, BikeLat)		
 	edges = net.getNeighboringEdges(x, y, 0.6)
-	# pick the closest edge (FIX THIS)
-
-	#traci.domain.Domain.getIDList
-	#put default case for edge_id to somethnig
-	if edges == []: #for case of no known bike lat
-		edges = net.getEdges()
-		edge_id = edges[2].getID()
-	else: # this sectoin needs to be fixed the sorting is terible, 
-		distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])#rewrtie this line
-		#distancesAndEdges = sorted(edges, key=lambda edges: edges[1]) # this is the basis
+	if len(edges) > 0:
+		distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])
 		dist, closestEdge = distancesAndEdges[0]
 		edge_id = closestEdge.getID()
-		#traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 	#update bike parameters
-	
-	if(BikeLat == 0 or BikeLong == 0):	
-		traci.vehicle.moveToXY("bike",edge_id,0,189.73,495.91,angle=BikeBear,keepRoute=2) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
-	else:
 		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
-	traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
+		traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
+	
+	# global net	
+	# x, y = traci.simulation.convertGeo(BikeLong, BikeLat, fromGeo=True)
+	# #sumolib.net.convertLonLat2XY(BikeLong, BikeLat)		
+	# edges = net.getNeighboringEdges(x, y, 0.6)
+	# # pick the closest edge (FIX THIS)
+
+	# #traci.domain.Domain.getIDList
+	# #put default case for edge_id to somethnig
+	# if edges == []: #for case of no known bike lat
+		# edges = net.getEdges()
+		# edge_id = edges[2].getID()
+	# else: # this sectoin needs to be fixed the sorting is terible, 
+		# distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])#rewrtie this line
+		# #distancesAndEdges = sorted(edges, key=lambda edges: edges[1]) # this is the basis
+		# dist, closestEdge = distancesAndEdges[0]
+		# edge_id = closestEdge.getID()
+		# #traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+	# #update bike parameters
+	
+	# if(BikeLat == 0 or BikeLong == 0):	
+		# traci.vehicle.moveToXY("bike",edge_id,0,189.73,495.91,angle=BikeBear,keepRoute=2) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+	# else:
+		# traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+	# traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
 		
 def warnCars(tlsID):
 	#get position of junction
@@ -393,7 +393,7 @@ def gogo(): # StartsTraci Hosted on port 8080, with the machines IP address
 if __name__ == '__main__':
 
 	global TTL
-	net = sumolib.net.readNet('horses.net.xml')
+	#net = sumolib.net.readNet('horses.net.xml')
 	TTL = 30 # setting TTL to 30 as fixed channge this if needed
 	e = threading.Thread(target= gogo)
 #	d = threading.Thread(target=EngineOn) """ if we need to put traci into a thread"""
