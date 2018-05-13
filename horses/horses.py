@@ -220,11 +220,11 @@ def generate_routefile():
 		<vType id="typeBike" vClass="emergency" color="blue" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle"/>
 		
 		<route id="cager1s" edges="-433065964#1 --40295#1 --40295#0"/>
-		<route id="cager1n" edges="-40295#0 -40295#1 -433065964#0 433066001 -50439396#1 -50439396#0"/>
-		<route id="cager3s" edges="-13373927#5 -13373927#4"/>
+		<route id="cager1n" edges="-40295#0 -40295#1 -433065964#0 -433066001 -50439396#1 -40295#1"/>
+		<route id="cager3s" edges="-13373927#3 -13373927#4 430638836#0"/>
 		<route id="cager4e" edges="-40297#0 -40297#1"/>
 		<route id="cager4w" edges="--40297#1 --40297#0"/>
-		<route id="bike1" edges="50439396#0 50439396#1 50439396#2 -13373927#4 -13373927#3 -13373927#1 -13373927#0 -13275797#2"/>""", file=routes)
+		<route id="bike1" edges="-50439396#0 -50439396#1 -50439396#2 -13373927#2 -13373927#1 -13373927#0 -13275797#2"/>""", file=routes)
 		#<route id="bike1" edges="-50439396#0 -50439396#1 -50439396#2 -13373927#3 -13373927#1 -13373927#0 -13275797#2"/>""", file=routes)
 		lastVeh = 0
 		vehNr = 0
@@ -340,13 +340,13 @@ def updatePosition():
 		#distancesAndEdges = sorted(edges, key=lambda edges: edges[1]) # this is the basis
 		dist, closestEdge = distancesAndEdges[0]
 		edge_id = closestEdge.getID()
-		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=2) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 	#update bike parameters
 	
 	if(BikeLat == 0 or BikeLong == 0):	
-		traci.vehicle.moveToXY("bike",edge_id,0,189.73,495.91,angle=BikeBear,keepRoute=2) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+		traci.vehicle.moveToXY("bike",edge_id,0,189.73,495.91,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 	else:
-		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=2) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 	traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
 		
 def warnCars(tlsID):
