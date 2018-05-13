@@ -344,7 +344,7 @@ def updatePosition():
 	#update bike parameters
 	
 	if(BikeLat == 0 or BikeLong == 0):	
-		traci.vehicle.moveToXY("bike",edge_id,0,190,36,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
+		traci.vehicle.moveToXY("bike",edge_id,0,380.82,656.11,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 	else:
 		traci.vehicle.moveToXY("bike",edge_id,0,x,y,angle=BikeBear,keepRoute=1) #(vehID, edge, lane index, x, y, angle, keepRoute 0-2)
 	traci.vehicle.setSpeed("bike",BikeSpeed)	#speed update
