@@ -77,86 +77,86 @@ def names():
 def greenz(TraficID): #get the next two green times from TraficID
 	tinker = traci.trafficlights.getCompleteRedYellowGreenDefinition(TraficID)[0]
 
-    timeToGrn = 0
-    timeToGrn2 = 0
+	timeToGrn = 0
+	timeToGrn2 = 0
    
 
-    phaseList = [] # set up an empty list
-    #phaseList.clear() #make sure its empty
-    for p in tinker._phases: # extract the list of phases from the logic class
-        phaseList.append((p._phaseDef,p._duration)) # each phase in a list ('Marker', duration)
-        
-    current = traci.trafficlights.getPhase(TraficID)
-    i = current        
-    #how long is the current phase - getNextSwitch returns the simulation time of the next switch
-    #so we have to subtract from it the current simulation time to get the remaining phaes time
-    thisTime = traci.trafficlights.getNextSwitch(TraficID) - traci.simulation.getCurrentTime() # how long the current phase
+	phaseList = [] # set up an empty list
+	#phaseList.clear() #make sure its empty
+	for p in tinker._phases: # extract the list of phases from the logic class
+		phaseList.append((p._phaseDef,p._duration)) # each phase in a list ('Marker', duration)
+		
+	current = traci.trafficlights.getPhase(TraficID)
+	i = current		
+	#how long is the current phase - getNextSwitch returns the simulation time of the next switch
+	#so we have to subtract from it the current simulation time to get the remaining phaes time
+	thisTime = traci.trafficlights.getNextSwitch(TraficID) - traci.simulation.getCurrentTime() # how long the current phase
 
-    numberOfGreens = 0
-    runingTime = 0
-    Phase = i;
-    global MinGreen
-    
-    while 1:
-        pattern,timey = phaseList[i]
-        if pattern.startswith('G'):
-            ptemp, ttemp = phaseList[(i+1)%len(phaseList)] #next patter on the list used below for lookahaed
-            if(Phase != i): #if we are in future phases
-                if ((timey > MinGreen) or(ptemp.startswith('G') & (ttemp+ttemp> MinGreen))):
-                #we only want the greeen when the green time remaining is more than MinGReen seconds
-                    runingTime += MinGreen # we have to place the time MinGreen seconds into the future or stuff will break
-                    if (numberOfGreens == 0):
-                        timeToGrn = runingTime 
-                        numberOfGreens += 1 #keep trak were not done yet
-                    else: # we have #2 so we can stop now
-                        timeToGrn2 = runingTime
-                        break #break when the second greeen time is reached
-            if ((thisTime > MinGreen) or(ptemp.startswith('G') & (ttemp+thisTime> MinGreen))):
-                #we only want the greeen when the green time remaining is more than MinGReen seconds
-                runingTime += MinGreen # we have to place the time MinGreen seconds into the future or stuff will break
-                if (numberOfGreens == 0):
-                    timeToGrn = runingTime 
-                    numberOfGreens += 1 #keep trak were not done yet
-                else: # we have #2 so we can stop now
-                    timeToGrn2 = runingTime
-                    break #break when the second greeen time is reached
-        elif (Phase == current): #if this is the current phase then add only the time remaining
-            runingTime += thisTime
-        else: #if this is not the current phase and not green we don't care add the time
-            runingTime += timey
-                   
-        
-#        if pattern.startswith('G'): #must go first because if the phase is green then go on through
-#            break
-#            
-#        if i == current:
-#            timeToGrn += thisTime
-#        else:
-#            timeToGrn += timey
-        Phase += 1
-        i = (i + 1)%len(phaseList)
-                    
-    #timeToGrn2 = timeToGrn #timeToGrn2 is not really needed but this stops the extra math at greentimes
-    
-#    for pattern,timey in phaseList:
-#        if(pattern.startswith('G') != 1): #excludeds the total curent phase time
-#            timeToGrn2 += timey
-        
-#    timeToGrn2 += thisTime #adds the current phase time
-    
-    global TTL
-    
-    global greenTimes
-    greenTimes = (timeToGrn/1000, (timeToGrn2)/1000) #double div makes it int division throw away that extra stuff hand grenades not sniper bullets
-    
-    if (greenTimes[1] < 30): #TTL is the lesser of 30 seconds or the time till green
-        TTL = greenTimes
-    else:
-        TTL = 30
-    
-    
-    global dirty
-    dirty = False #clear the data update lock
+	numberOfGreens = 0
+	runingTime = 0
+	Phase = i;
+	global MinGreen
+	
+	while 1:
+		pattern,timey = phaseList[i]
+		if pattern.startswith('G'):
+			ptemp, ttemp = phaseList[(i+1)%len(phaseList)] #next patter on the list used below for lookahaed
+			if(Phase != i): #if we are in future phases
+				if ((timey > MinGreen) or(ptemp.startswith('G') & (ttemp+ttemp> MinGreen))):
+				#we only want the greeen when the green time remaining is more than MinGReen seconds
+					runingTime += MinGreen # we have to place the time MinGreen seconds into the future or stuff will break
+					if (numberOfGreens == 0):
+						timeToGrn = runingTime 
+						numberOfGreens += 1 #keep trak were not done yet
+					else: # we have #2 so we can stop now
+						timeToGrn2 = runingTime
+						break #break when the second greeen time is reached
+			if ((thisTime > MinGreen) or(ptemp.startswith('G') & (ttemp+thisTime> MinGreen))):
+				#we only want the greeen when the green time remaining is more than MinGReen seconds
+				runingTime += MinGreen # we have to place the time MinGreen seconds into the future or stuff will break
+				if (numberOfGreens == 0):
+					timeToGrn = runingTime 
+					numberOfGreens += 1 #keep trak were not done yet
+				else: # we have #2 so we can stop now
+					timeToGrn2 = runingTime
+					break #break when the second greeen time is reached
+		elif (Phase == current): #if this is the current phase then add only the time remaining
+			runingTime += thisTime
+		else: #if this is not the current phase and not green we don't care add the time
+			runingTime += timey
+				   
+		
+#		if pattern.startswith('G'): #must go first because if the phase is green then go on through
+#			break
+#			
+#		if i == current:
+#			timeToGrn += thisTime
+#		else:
+#			timeToGrn += timey
+		Phase += 1
+		i = (i + 1)%len(phaseList)
+					
+	#timeToGrn2 = timeToGrn #timeToGrn2 is not really needed but this stops the extra math at greentimes
+	
+#	for pattern,timey in phaseList:
+#		if(pattern.startswith('G') != 1): #excludeds the total curent phase time
+#			timeToGrn2 += timey
+		
+#	timeToGrn2 += thisTime #adds the current phase time
+	
+	global TTL
+	
+	global greenTimes
+	greenTimes = (timeToGrn/1000, (timeToGrn2)/1000) #double div makes it int division throw away that extra stuff hand grenades not sniper bullets
+	
+	if (greenTimes[1] < 30): #TTL is the lesser of 30 seconds or the time till green
+		TTL = greenTimes
+	else:
+		TTL = 30
+	
+	
+	global dirty
+	dirty = False #clear the data update lock
 
 def LightLocation(TrafficID):#gets the Location of the Traffic Light from TrafficID
 	youAreHere = traci.junction.getPosition(TrafficID)
