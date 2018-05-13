@@ -317,7 +317,7 @@ def run():
 def updatePosition():
 	net = sumolib.net.readNet('horses.net.xml')
 	x, y = net.convertLonLat2XY(BikeLong, BikeLat)		
-	edges = net.getNeighboringEdges(x, y, 100)
+	edges = net.getNeighboringEdges(x, y, 10)
 	if len(edges) > 0:
 		distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])
 		dist, closestEdge = distancesAndEdges[0]
