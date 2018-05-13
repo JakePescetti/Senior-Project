@@ -149,9 +149,11 @@ def greenz(TraficID): #get the next two green times from TraficID
 	global greenTimes
 	greenTimes = (timeToGrn/1000, (timeToGrn2)/1000) #double div makes it int division throw away that extra stuff hand grenades not sniper bullets
 	
-	if (greenTimes[1] < 30): #TTL is the lesser of 30 seconds or the time till green
+	if (greenTimes[1] < 30) and greenTimes[1] >= 5: #TTL is the lesser of 30 seconds or the time till green
 		TTL = greenTimes
-	else:
+	elif greenTimes[1] < 5:
+		TTL = 5
+	else 
 		TTL = 30
 	
 	
