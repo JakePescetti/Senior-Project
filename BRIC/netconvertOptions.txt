@@ -1,0 +1,1 @@
+netconvert --osm-files bric_edit.osm -o bric.net.xml --geometry.remove --roundabouts.guess --ramps.guess --junctions.join --tls.join --tls.green.time 30 --tls.yellow.time 3 --tls.left-green.time 0 --geometry.min-radius.fix
