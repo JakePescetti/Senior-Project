@@ -258,22 +258,26 @@ def warnCars(tlsID):
 	radius = 40
 	x1,y1 = traci.junction.getPosition(tlsID)
 	allCars = traci.vehicle.getIDList()
-	for car in allCars:
-		x2,y2 = traci.vehicle.getPosition(car)
-		dist = traci.simulation.getDistance2D(x1,y1,x2,y2, isGeo=False, isDriving=True)
-		if dist < radius and car != "bike" and traci.vehicle.getSpeed(car)==0:
-			traci.vehicle.setColor(car,(255,0,0,255)) #set color to red to show car is warned
-			traci.vehicle.slowDown(car,0,1500) #can't stop car while moving, crashes SUMO
-			print('car warned\n') #debugging
+	#check if other vehicles in to avoid crashing the sim
+	if len(allCars)>1:
+		for car in allCars:
+			x2,y2 = traci.vehicle.getPosition(car)
+			dist = traci.simulation.getDistance2D(x1,y1,x2,y2, isGeo=False, isDriving=True)
+			if dist < radius and car != "bike" and traci.vehicle.getSpeed(car)==0:
+				traci.vehicle.setColor(car,(255,0,0,255)) #set color to red to show car is warned
+				traci.vehicle.slowDown(car,0,1500) #can't stop car while moving, crashes SUMO
+				print('car warned\n') #debugging
 				
 def clearCars():
 	#clear all cars in simulation
 	allCars = traci.vehicle.getIDList()
-	for car in allCars:
-		if car != "bike":
-			traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
-			traci.vehicle.slowDown(car,traci.vehicle.getSpeedWithoutTraCI(car),3000) #Resumes original speed of car
-			print('car cleared\n')
+	#check for other vehicles to avoid crashing the sim
+	if len(allCars)>1:
+		for car in allCars:
+			if car != "bike":
+				traci.vehicle.setColor(car,(255,255,0,255)) #default yellow color 255,255,0,255
+				traci.vehicle.slowDown(car,traci.vehicle.getSpeedWithoutTraCI(car),3000) #Resumes original speed of car
+				print('car cleared\n')
 	
 def get_options():
 	optParser = optparse.OptionParser()
