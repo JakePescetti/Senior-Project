@@ -1,0 +1,4 @@
+<routes>
+		<vType id="typeBike" vClass="emergency" color="green" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle"/>
+		<route id="bike1" edges="430861635#0 430861635#1 430004090#1 -432516083 -48290 432523796 432523796 431941220#4"/>
+</routes>
