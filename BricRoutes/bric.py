@@ -230,7 +230,8 @@ def run():
 			if warnRepeat == 0 and warningTriggered == True: #Reset cars
 				clearCars()
 				warningTriggered = False
-			
+		
+		print(traci.vehicle.getElectricityConsumption("bike"))
 		traci.simulationStep()
 		step += 1
 		time.sleep(1.0 - ((time.time() - starttime) % 1.0)) #keeps each simulation step at 1 second to sync with real time
