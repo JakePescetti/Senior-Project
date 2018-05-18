@@ -1,0 +1,4 @@
+<routes>
+		<vType id="typeBike" accel="0.5" decel="5" sigma="0.5" length="2" minGap="3" maxSpeed="15" guiShape="bicycle"/>
+		<route id="bike1" edges="430004090#1"/>
+</routes>
