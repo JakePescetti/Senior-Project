@@ -219,8 +219,20 @@ def generate_routefile():
 	with open("horses.rou.xml", "w") as routes:
 		print("""<routes>
 		<vType id="typeCager" accel="0.8" decel="9" sigma="0.5" length="5" minGap="2.5" maxSpeed="20" guiShape="passenger"/>
-		<vType id="typeBike" vClass="emergency" color="blue" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle"/>
-		
+		<vType id="typeBike" vClass="emergency" emissionClass="Energy/unknown" color="green" accel="0.5" decel="5" sigma="0" length="2" minGap="0" maxSpeed="20" jmDriveAterRedTime="100" guiShape="bicycle">
+			<param key="maximumBatteryCapacity" value="2000"/>
+		      <param key="maximumPower" value="150"/>
+		      <param key="vehicleMass" value="100"/>
+		      <param key="frontSurfaceArea" value="0.5"/>
+		      <param key="airDragCoefficient" value="0.6"/>
+		      <param key="internalMomentOfInertia" value="0.01"/>
+		      <param key="radialDragCoefficient" value="0.5"/>
+		      <param key="rollDragCoefficient" value="0.01"/>
+		      <param key="constantPowerIntake" value="0"/>
+		      <param key="propulsionEfficiency" value="1"/>
+		      <param key="recuperationEfficiency" value="0"/>
+		      <param key="stoppingTreshold" value="0.1"/>
+		</vType>
 		<route id="cager1s" edges="-433065964#1 --40295#1 --40295#0"/>
 		<route id="cager1n" edges="-40295#0 -40295#1 -433065964#0 -433066001 -50439396#1 -40295#1"/>
 		<route id="cager3s" edges="-13373927#3 -13373927#2 430638836#0"/>
